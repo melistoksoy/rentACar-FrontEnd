@@ -1,0 +1,44 @@
+<form class="w-50 me-3 mt-5 mb-5">
+  <input
+    type="search"
+    class="form-control"
+    placeholder="Search..."
+    [(ngModel)]="textFilter"
+    name="filterText"
+    id="filterText"
+  />
+</form>
+
+<div *ngIf="textFilter" class="alert alert-primary">
+  {{ textFilter }}
+</div>
+
+<div class="row">
+  <div
+    *ngFor="let car of cars | filter : textFilter"
+    class="card"
+    style="width: 18rem"
+  >
+    <img src="" class="card-img-top" alt="" />
+    <div
+      class="card-body"
+      (mouseenter)="showDetails(car)"
+      (mouseleave)="hideDetails()"
+    >
+      <h5 class="card-title">{{ car.model.name }}</h5>
+      <img
+        src="{{ car.imageUrl }}"
+        alt="car-img"
+        style="width: 200px; height: 200px"
+      />
+
+      <p class="card-text" *ngIf="selectedCar === car">
+        <strong>Plate:</strong> {{ car.plate }} <br />
+        <strong>Daily Price:</strong> {{ car.dailyPrice }} <br />
+        <strong>Model Year:</strong> {{ car.modelYear }} <br />
+        <strong>State:</strong> {{ car.state===1 ?'Available' : 'Not Available'}} <br />
+        <button class="btn btn-primary">Rent</button>
+      </p>
+    </div>
+  </div>
+</div>
